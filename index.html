@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Library System</title>
+    <title>Library App</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.4/dist/ethers.min.js"></script>
+    <script src="app.js"></script>
 </head>
 <body>
-    <h1>Library System</h1>
+    <h1>Library App</h1>
     <div>
         <label for="bookTitle">Book Title:</label>
         <input type="text" id="bookTitle">
+        <label for="bookCopies">Copies:</label>
+        <input type="number" id="bookCopies" min="1">
         <button onclick="addBook()">Add Book</button>
     </div>
     <div>
         <h2>Available Books</h2>
         <ul id="bookList"></ul>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.4/dist/ethers.min.js"></script>
-    <script src="app.js"></script>
 </body>
 </html>

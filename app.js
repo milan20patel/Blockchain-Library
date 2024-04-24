@@ -1,4 +1,8 @@
-const contractAddress = "0x096caFE1463CDbb47B88Df6e5d9AD9603fC83349";
+const { ethers } = require("ethers");
+const provider = new ethers.providers.JsonRpcProvider("https://api.avax-test.network/ext/bc/C/rpc");
+const signer = provider.getSigner();
+
+const contractAddress = "0xE0B05775560f2a175749Bfa8729972DcFB30D430"; // Update with your contract address
 const abi = [ {
     "anonymous": false,
     "inputs": [
@@ -157,13 +161,13 @@ const abi = [ {
     "stateMutability": "nonpayable",
     "type": "function"
   } ];
-const provider = new ethers.providers.JsonRpcProvider("https://api.avax-test.network/ext/bc/C/rpc");
-const signer = provider.getSigner();
 const contract = new ethers.Contract(contractAddress, abi, signer);
 
 async function addBook() {
     const bookTitle = document.getElementById("bookTitle").value;
-    await contract.addBook(bookTitle, 1); // Assuming 1 copy is added
+    const bookCopies = parseInt(document.getElementById("bookCopies").value);
+
+    await contract.addBook(bookTitle, bookCopies);
     updateBookList();
 }
 
@@ -174,7 +178,7 @@ async function updateBookList() {
     const availableBooks = await contract.getAvailableBooks();
     availableBooks.forEach(book => {
         const li = document.createElement("li");
-        li.textContent = book.title;
+        li.textContent = book.title + " - Copies: " + book.copies;
         bookList.appendChild(li);
     });
 }
